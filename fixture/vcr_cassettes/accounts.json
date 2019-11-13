@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer 2137291.at.KKdN3dTpguE2isI1SBB6NKU8GCCjb-1xsNfI1q3nvTImo3sr288HaiZYk8y4FfNOopH_5y_tPoxcNp42KXPXZQ",
+        "Harvest-Account-Id": "1199859",
+        "User-Agent": "MyApp (yourname@example.com)"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://id.getharvest.com/api/v2/accounts"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"user\":{\"id\":2137291,\"first_name\":\"Eric\",\"last_name\":\"Froese\",\"email\":\"eric@clockk.com\"},\"accounts\":[{\"id\":1199859,\"name\":\"Clockk.com inc.\",\"product\":\"harvest\",\"google_sign_in_required\":false}]}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Wed, 13 Nov 2019 21:13:15 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "X-Download-Options": "noopen",
+        "X-Permitted-Cross-Domain-Policies": "none",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Harvest-Token-Expires-At": "Wed, 27 Nov 2019 17:06:18 GMT",
+        "ETag": "W/\"961441db8ae764381c4c5a615fc71f1e\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "X-Request-Id": "33bbdee726ce76acac52907e8e28bd8b",
+        "X-Runtime": "0.091294",
+        "X-Server": "lb3"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
