@@ -30,4 +30,10 @@ defmodule HarvexTest do
       assert [%Harvex.Project{} | _] = Harvex.Project.list()
     end
   end
+
+  test "gets a resource list recursively" do
+    use_cassette "projects" do
+      assert [%Harvex.Project{} | _] = Harvex.Project.list(recurse_pages: true)
+    end
+  end
 end

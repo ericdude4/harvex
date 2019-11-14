@@ -3,9 +3,9 @@
     "request": {
       "body": "",
       "headers": {
-        "Authorization": "Bearer 2137291.at.KKdN3dTpguE2isI1SBB6NKU8GCCjb-1xsNfI1q3nvTImo3sr288HaiZYk8y4FfNOopH_5y_tPoxcNp42KXPXZQ",
+        "Authorization": "Bearer 2137291.pt.hp837WAz5X82h7Pm4T9Hubqcc30PSApWJmS8f_8XNfzq458gB1lQELSCdo8y04wcM5POtLFAszS51fOOteruPg",
         "Harvest-Account-Id": "1199859",
-        "User-Agent": "MyApp (yourname@example.com)"
+        "User-Agent": "Harvex (eric@clockk.com)"
       },
       "method": "get",
       "options": [],
@@ -17,7 +17,7 @@
       "body": "{\"id\":3031110,\"first_name\":\"Eric\",\"last_name\":\"Froese\",\"email\":\"eric@clockk.com\",\"telephone\":\"\",\"timezone\":\"Eastern Time (US & Canada)\",\"weekly_capacity\":126000,\"has_access_to_all_future_projects\":false,\"is_contractor\":false,\"is_admin\":true,\"is_project_manager\":false,\"can_see_rates\":true,\"can_create_projects\":true,\"can_create_invoices\":true,\"is_active\":true,\"calendar_integration_enabled\":false,\"calendar_integration_source\":null,\"created_at\":\"2019-11-12T18:15:29Z\",\"updated_at\":\"2019-11-12T18:15:58Z\",\"default_hourly_rate\":null,\"cost_rate\":null,\"roles\":[],\"avatar_url\":\"https://proxy.harvestfiles.com/production_harvestapp_public/uploads/users/avatar/003/031/110/normal.?1573582530\"}",
       "headers": {
         "Server": "nginx",
-        "Date": "Wed, 13 Nov 2019 21:06:45 GMT",
+        "Date": "Thu, 14 Nov 2019 17:21:37 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Transfer-Encoding": "chunked",
         "Connection": "keep-alive",
@@ -33,13 +33,10 @@
         "X-App-Server": "app21",
         "X-Robots-Tag": "noindex, nofollow",
         "Content-Security-Policy": "report-uri /csp_reports; default-src *; img-src * data:; font-src data: cache.harvestapp.com https://js.intercomcdn.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com https://*.nr-data.net https://ajax.googleapis.com cache.harvestapp.com https://js-agent.newrelic.com https://platform.twitter.com https://www.google.com https://www.googleadservices.com https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net https://app.intercom.io https://widget.intercom.io https://js.intercomcdn.com https://cdn.plaid.com https://tagmanager.google.com https://bat.bing.com https://ct.capterra.com; style-src 'self' 'unsafe-inline' cache.harvestapp.com https://www.google.com https://tagmanager.google.com https://fonts.googleapis.com",
-        "Access-Control-Allow-Origin": "https://dev.ericfroese.ca",
-        "Access-Control-Expose-Headers": "X-Company-Version",
-        "Access-Control-Allow-Headers": "Content-Type,Accept",
-        "X-Request-Id": "5904e6520d9f9204aa5ffe6a62efe568",
-        "X-Runtime": "0.031372",
+        "X-Request-Id": "81a51d124d4b5573d784c4d570ee21f0",
+        "X-Runtime": "0.036690",
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
-        "X-Server": "lb4"
+        "X-Server": "lb1"
       },
       "status_code": 200,
       "type": "ok"

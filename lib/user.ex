@@ -42,7 +42,7 @@ defmodule Harvex.User do
       iex> Harvex.User.get_me()
       {:ok, %Harvex.User{}}
   """
-  def get_me(options \\ [method: :personal]) do
-    get("me", options)
+  def get_me(options \\ []) do
+    get(options ++ [id: "me"])
   end
 end

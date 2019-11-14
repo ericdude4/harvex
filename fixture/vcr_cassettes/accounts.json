@@ -3,9 +3,8 @@
     "request": {
       "body": "",
       "headers": {
-        "Authorization": "Bearer 2137291.at.KKdN3dTpguE2isI1SBB6NKU8GCCjb-1xsNfI1q3nvTImo3sr288HaiZYk8y4FfNOopH_5y_tPoxcNp42KXPXZQ",
-        "Harvest-Account-Id": "1199859",
-        "User-Agent": "MyApp (yourname@example.com)"
+        "Authorization": "Bearer 2137291.pt.hp837WAz5X82h7Pm4T9Hubqcc30PSApWJmS8f_8XNfzq458gB1lQELSCdo8y04wcM5POtLFAszS51fOOteruPg",
+        "User-Agent": "Harvex (eric@clockk.com)"
       },
       "method": "get",
       "options": [],
@@ -17,7 +16,7 @@
       "body": "{\"user\":{\"id\":2137291,\"first_name\":\"Eric\",\"last_name\":\"Froese\",\"email\":\"eric@clockk.com\"},\"accounts\":[{\"id\":1199859,\"name\":\"Clockk.com inc.\",\"product\":\"harvest\",\"google_sign_in_required\":false}]}",
       "headers": {
         "Server": "nginx",
-        "Date": "Wed, 13 Nov 2019 21:13:15 GMT",
+        "Date": "Thu, 14 Nov 2019 17:21:37 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Transfer-Encoding": "chunked",
         "Connection": "keep-alive",
@@ -27,12 +26,12 @@
         "X-Download-Options": "noopen",
         "X-Permitted-Cross-Domain-Policies": "none",
         "Referrer-Policy": "strict-origin-when-cross-origin",
-        "Harvest-Token-Expires-At": "Wed, 27 Nov 2019 17:06:18 GMT",
+        "Harvest-Token-Expires-At": "Fri, 14 Nov 2053 14:45:48 GMT",
         "ETag": "W/\"961441db8ae764381c4c5a615fc71f1e\"",
         "Cache-Control": "max-age=0, private, must-revalidate",
-        "X-Request-Id": "33bbdee726ce76acac52907e8e28bd8b",
-        "X-Runtime": "0.091294",
-        "X-Server": "lb3"
+        "X-Request-Id": "8347829c1cab651f5439224db7353af4",
+        "X-Runtime": "0.048029",
+        "X-Server": "lb1"
       },
       "status_code": 200,
       "type": "ok"

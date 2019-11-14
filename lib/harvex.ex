@@ -10,18 +10,15 @@ defmodule Harvex do
   """
   def get_auth_headers(auth_opts, requires_account_id_header \\ true) do
     auth_headers =
-      case Keyword.get(auth_opts, :method) do
+      case Keyword.get(auth_opts, :auth_method) do
         :oauth_2 ->
           oauth_2_headers(auth_opts)
 
-        :personal ->
+        nil ->
           personal_auth_headers(auth_opts)
 
-        nil ->
-          raise(HarvexError, "missing :method in :auth_options")
-
         _ ->
-          raise(HarvexError, "invalid :method in :auth_options")
+          raise(HarvexError, "invalid :auth_method in :auth_options")
       end
 
     account_id_headers =

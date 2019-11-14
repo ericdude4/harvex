@@ -1,30 +1,60 @@
 defmodule Harvex.Resource do
   defmacro __using__(_) do
     quote do
-      def get(append_url \\ "", options \\ [method: :personal]) do
-        url = "https://api.harvestapp.com/v2#{harvest_resource_path()}/#{append_url}"
+      def get(options \\ []) do
+        resource_id = Keyword.get(options, :id)
 
-        case HTTPoison.get(
-               url,
-               Harvex.get_auth_headers(options)
-             ) do
+        url =
+          "https://api.harvestapp.com/v2#{harvest_resource_path()}"
+          |> (fn url ->
+                if is_nil(resource_id) do
+                  url
+                else
+                  url <> "/#{resource_id}"
+                end
+              end).()
+          |> (fn url ->
+                case Keyword.get(options, :get_parameters) do
+                  nil ->
+                    url
+
+                  get_parameters ->
+                    url <> "?" <> URI.encode_query(get_parameters)
+                end
+              end).()
+
+        headers =
+          Harvex.get_auth_headers(options)
+          |> (fn headers ->
+                case Keyword.get(options, :additional_headers) do
+                  nil ->
+                    headers
+
+                  additional_headers ->
+                    headers ++ additional_headers
+                end
+              end).()
+
+        case HTTPoison.get(url, headers) do
           {:ok, resp} ->
             case resp.status_code do
               200 ->
                 payload = Jason.decode!(resp.body, keys: :atoms)
 
-                if append_url == "" do
-                  # this means it is a list of resources. The resources will be
-                  # contained within a property of the response with the same
-                  # name as the pluralized resource being retrieved.
-                  "/" <> key = harvest_resource_path()
+                case Keyword.get(options, :id) do
+                  nil ->
+                    # this means it is a list of resources. The resources will be
+                    # contained within a property of the response with the same
+                    # name as the pluralized resource being retrieved.
+                    "/" <> key = harvest_resource_path()
 
-                  payload[String.to_atom(key)]
-                  |> Enum.map(&struct!(__MODULE__, &1))
-                else
-                  # this means it is a single resource. The resource will exist at
-                  # the top level of the response body
-                  struct!(__MODULE__, payload)
+                    payload[String.to_atom(key)]
+                    |> Enum.map(&struct!(__MODULE__, &1))
+
+                  _resource_id ->
+                    # this means it is a single resource. The resource will exist at
+                    # the top level of the response body
+                    struct!(__MODULE__, payload)
                 end
 
               401 ->
@@ -34,7 +64,40 @@ defmodule Harvex.Resource do
         end
       end
 
-      def list(options \\ [method: :personal]), do: get("", options)
+      defp get_recursive(
+             options \\ [],
+             collector \\ [],
+             page \\ 1,
+             per_page \\ 100
+           ) do
+        resources = get(options ++ [get_parameters: %{page: page, per_page: per_page}])
+
+        if Enum.count(resources) == per_page do
+          get_recursive(options, resources ++ collector, page + 1, per_page)
+        else
+          # all pages exhausted for resource. return collection
+          resources ++ collector
+        end
+      end
+
+      @doc """
+      Retrieve list of this Harvest resource. Shares all options with get\2
+
+      ## Options
+      * `:page` - The page number to use in pagination. Default 1
+      * `:per_page` - The number of records to return per page. Can range between 1 and 100. Default 100
+      * `:recurse_pages` - Recursively follow each next page and return all records.
+      """
+      def list(options \\ []) do
+        page = Keyword.get(options, :page, 1)
+        per_page = Keyword.get(options, :per_page, 100)
+
+        if Keyword.get(options, :recurse_pages) do
+          get_recursive(options, [], page, per_page)
+        else
+          get(options ++ [get_parameters: %{page: page, per_page: per_page}])
+        end
+      end
     end
   end
 end
