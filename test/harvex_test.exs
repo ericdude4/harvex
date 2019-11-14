@@ -36,4 +36,10 @@ defmodule HarvexTest do
       assert [%Harvex.Project{} | _] = Harvex.Project.list(recurse_pages: true)
     end
   end
+
+  test "gets authenticated harvest user's clients" do
+    use_cassette "clients" do
+      assert [%Harvex.Client{} | _] = Harvex.Client.list()
+    end
+  end
 end

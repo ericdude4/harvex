@@ -1,6 +1,14 @@
 defmodule Harvex.Resource do
   defmacro __using__(_) do
     quote do
+      @doc """
+      Retrieve Harvest resource by id.
+
+      ## Options
+      * `:id` - The id of the resource you are trying to retrieve. Defaults to empty, giving same behaviour as list/1
+      * `:get_parameters` - Map of query parameters that you want to include in the query.
+      * `:additional_headers` - List of headers formatted as `[{"Header-Name", "Header-Value"}]`
+      """
       def get(options \\ []) do
         resource_id = Keyword.get(options, :id)
 
@@ -70,7 +78,16 @@ defmodule Harvex.Resource do
              page \\ 1,
              per_page \\ 100
            ) do
-        resources = get(options ++ [get_parameters: %{page: page, per_page: per_page}])
+        get_parameters =
+          case Keyword.get(options, :get_parameters) do
+            nil ->
+              %{page: page, per_page: per_page}
+
+            get_parameters ->
+              Map.merge(get_parameters, %{page: page, per_page: per_page})
+          end
+
+        resources = get(options ++ [get_parameters: get_parameters])
 
         if Enum.count(resources) == per_page do
           get_recursive(options, resources ++ collector, page + 1, per_page)
@@ -81,7 +98,7 @@ defmodule Harvex.Resource do
       end
 
       @doc """
-      Retrieve list of this Harvest resource. Shares all options with get\2
+      Retrieve list of this Harvest resource. Shares all options with get/1
 
       ## Options
       * `:page` - The page number to use in pagination. Default 1
