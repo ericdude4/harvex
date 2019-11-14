@@ -18,4 +18,16 @@ defmodule HarvexTest do
       assert %Harvex.User{} = Harvex.User.get_me()
     end
   end
+
+  test "gets authenticated harvest user's users" do
+    use_cassette "users" do
+      assert [%Harvex.User{} | _] = Harvex.User.list()
+    end
+  end
+
+  test "gets authenticated harvest user's projects" do
+    use_cassette "projects" do
+      assert [%Harvex.Project{} | _] = Harvex.Project.list()
+    end
+  end
 end

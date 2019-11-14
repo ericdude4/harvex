@@ -4,7 +4,7 @@ defmodule Harvex.User do
   @moduledoc """
   Documentation for Harvex.User module.
 
-  This module is responsible for getting Harvest User resources
+  Responsible for Harvest Users API interactions.
   """
   defstruct [
     :id,
