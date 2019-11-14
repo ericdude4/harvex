@@ -4,7 +4,7 @@ defmodule Harvex.Account do
   def list(options \\ [method: :personal]) do
     case HTTPoison.get(
            "https://id.getharvest.com/api/v2/accounts",
-           Harvex.get_auth_headers(options)
+           Harvex.get_auth_headers(options, false)
          ) do
       {:ok, resp} ->
         payload = Jason.decode!(resp.body, keys: :atoms)

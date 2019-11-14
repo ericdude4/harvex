@@ -24,7 +24,7 @@ defmodule Harvex do
           raise(HarvexError, "invalid :method in :auth_options")
       end
 
-    account_id_header =
+    account_id_headers =
       if requires_account_id_header do
         account_id =
           case Keyword.get(auth_opts, :account_id) do
@@ -41,10 +41,12 @@ defmodule Harvex do
               account_id
           end
 
-        {"Harvest-Account-Id", account_id}
+        [{"Harvest-Account-Id", account_id}]
+      else
+        []
       end
 
-    auth_headers ++ [account_id_header] ++ get_user_agent_headers()
+    auth_headers ++ account_id_headers ++ get_user_agent_headers()
   end
 
   # return request headers based on an Oauth2 authentication scheme

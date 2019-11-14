@@ -12,9 +12,16 @@ defmodule Harvex.Resource do
                Harvex.get_auth_headers(options)
              ) do
           {:ok, resp} ->
-            payload = Jason.decode!(resp.body, keys: :atoms)
+            case resp.status_code do
+              200 ->
+                payload = Jason.decode!(resp.body, keys: :atoms)
 
-            struct!(__MODULE__, payload)
+                struct!(__MODULE__, payload)
+
+              401 ->
+                error = Jason.decode!(resp.body, keys: :atoms)
+                raise(HarvexError, error.error_description)
+            end
         end
       end
     end
