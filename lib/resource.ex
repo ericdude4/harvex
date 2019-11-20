@@ -69,6 +69,9 @@ defmodule Harvex.Resource do
                 error = Jason.decode!(resp.body, keys: :atoms)
                 raise(HarvexError, error.error_description)
             end
+
+          {:error, %HTTPoison.Error{id: nil, reason: reason}} ->
+            raise(HarvexError, "Unable to connect to Harvest server. Reason #{reason}")
         end
       end
 

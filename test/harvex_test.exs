@@ -42,4 +42,27 @@ defmodule HarvexTest do
       assert [%Harvex.Client{} | _] = Harvex.Client.list()
     end
   end
+
+  test "gets authenticated harvest user's tasks" do
+    use_cassette "tasks" do
+      assert [%Harvex.Task{} | _] = Harvex.Task.list()
+    end
+  end
+
+  test "gets authenticated harvest user's time entries" do
+    use_cassette "time_entries" do
+      assert [%Harvex.TimeEntry{} | _] = Harvex.TimeEntry.list()
+    end
+  end
+
+  # test "creates a time entry for authenticated user" do
+  #   use_cassette "create_time_entry" do
+  #     time_entry = %{
+  #       project_id: 23001782,
+  #       task_id: 13283058,
+
+  #     }
+  #     assert %Harvex.TimeEntry{} = Harvex.TimeEntry.create()
+  #   end
+  # end
 end
