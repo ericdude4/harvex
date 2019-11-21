@@ -1,6 +1,6 @@
 # Harvex
 
-**TODO: Add description**
+Under construction! This repo is under development.
 
 ## Installation
 
