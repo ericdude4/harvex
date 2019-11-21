@@ -1,4 +1,22 @@
 defmodule Harvex.Resource do
+  @moduledoc """
+  All Harvest requests require authorization headers. These can be set by deafult in your config file:
+
+  ## Example Config
+      config :harvex,
+        personal_access_token:
+          "2137291.pt.hp837WAz5X82h7Pm4T9Hubqcc30PSApWJmS8f_8XNfzq458gB1lQELSCdo8y04wthis_is_an_example_2123",
+        account_id: "123456789",
+        user_agent: "Harvex (eric@clockk.com)"
+
+  The authorization headers can be customized for each request using the following options:
+
+  ## Shared Authorization Options
+  * `:auth_method` - Required. `:oauth_2` or `:personal_access_token` are the only valid options. Defaults to `:personal_access_token`
+  * `:access_token` - Required. Either a Harvest issued OAuth2 access token or Harvest issued personal access token. Defaults to the `:personal_access_token` provided in config file if one was set.
+  * `:account_id` - Required. An access token can have access to resources from multiple Harvest accounts. Specify which one with this option. All requests except for `Harvex.Account.list/2` require this field. Defaults to `:account_id` provided in config file if one was set.
+  * `:user_agent` - Optional. Tells Harvest API who is communicating with their API.
+  """
   defmacro __using__(_) do
     quote do
       @doc """
@@ -116,6 +134,58 @@ defmodule Harvex.Resource do
           get_recursive(options, [], page, per_page)
         else
           get(options ++ [get_parameters: %{page: page, per_page: per_page}])
+        end
+      end
+
+      @doc """
+      Create new harvest resource. Parameters are not validated, but passed along in the request body. Please see Harvest API documentation for the appropriate body parameters for your resource.
+
+      ## Params
+      * `properties` - Map of resource properties to create the resource with. This will be different for each resource based on the specification in Harvest API
+      """
+      def create(properties, options \\ []) do
+        url = "https://api.harvestapp.com/v2#{harvest_resource_path()}"
+
+        headers =
+          Harvex.get_auth_headers(options)
+          |> (fn headers ->
+                case Keyword.get(options, :additional_headers) do
+                  nil ->
+                    headers
+
+                  additional_headers ->
+                    headers ++ additional_headers
+                end
+              end).()
+          |> (&(&1 ++ [{"Content-Type", "application/json"}])).()
+
+        body =
+          case Jason.encode(properties) do
+            {:ok, body} ->
+              body
+
+            {:error, %Jason.EncodeError{message: message}} ->
+              raise(
+                HarvexError,
+                "Invalid :properties. Was not able to encode to JSON. #{message}"
+              )
+          end
+
+        case HTTPoison.post(url, body, headers) do
+          {:ok, resp} ->
+            case resp.status_code do
+              201 ->
+                payload = Jason.decode!(resp.body, keys: :atoms)
+
+                struct!(__MODULE__, payload)
+
+              status_code when status_code > 399 ->
+                error = Jason.decode!(resp.body, keys: :atoms)
+                raise(HarvexError, error.message)
+            end
+
+          {:error, %HTTPoison.Error{id: nil, reason: reason}} ->
+            raise(HarvexError, "Unable to connect to Harvest server. Reason #{reason}")
         end
       end
     end

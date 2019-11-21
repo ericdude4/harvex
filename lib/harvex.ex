@@ -14,11 +14,14 @@ defmodule Harvex do
         :oauth_2 ->
           oauth_2_headers(auth_opts)
 
+        :personal_access_token ->
+          personal_auth_headers(auth_opts)
+
         nil ->
           personal_auth_headers(auth_opts)
 
         _ ->
-          raise(HarvexError, "invalid :auth_method in :auth_options")
+          raise(HarvexError, "invalid :auth_method in options")
       end
 
     account_id_headers =
@@ -28,7 +31,7 @@ defmodule Harvex do
             nil ->
               case Application.fetch_env(:harvex, :account_id) do
                 :error ->
-                  raise(HarvexError, "no :account_id in :auth_options or config")
+                  raise(HarvexError, "no :account_id in options or config")
 
                 {:ok, account_id} ->
                   account_id
@@ -43,7 +46,7 @@ defmodule Harvex do
         []
       end
 
-    auth_headers ++ account_id_headers ++ get_user_agent_headers()
+    auth_headers ++ account_id_headers ++ get_user_agent_headers(auth_opts)
   end
 
   # return request headers based on an Oauth2 authentication scheme
@@ -51,7 +54,7 @@ defmodule Harvex do
     access_token =
       case Keyword.get(auth_opts, :access_token) do
         nil ->
-          raise(HarvexError, "no :access_token in :auth_options")
+          raise(HarvexError, "no :access_token in options.")
 
         access_token ->
           access_token
@@ -82,13 +85,19 @@ defmodule Harvex do
     ]
   end
 
-  # return user agent headers based on :user_agent in harvex config
-  defp get_user_agent_headers() do
-    case Application.fetch_env(:harvex, :user_agent) do
-      :error ->
-        []
+  # return user agent headers based on :user_agent in harvex config or the one provided in config
+  defp get_user_agent_headers(auth_opts) do
+    case Keyword.get(auth_opts, :user_agent) do
+      nil ->
+        case Application.fetch_env(:harvex, :user_agent) do
+          :error ->
+            []
 
-      {:ok, user_agent} ->
+          {:ok, user_agent} ->
+            [{"User-Agent", user_agent}]
+        end
+
+      user_agent ->
         [{"User-Agent", user_agent}]
     end
   end

@@ -55,14 +55,20 @@ defmodule HarvexTest do
     end
   end
 
-  # test "creates a time entry for authenticated user" do
-  #   use_cassette "create_time_entry" do
-  #     time_entry = %{
-  #       project_id: 23001782,
-  #       task_id: 13283058,
+  test "creates a time entry for authenticated user" do
+    use_cassette "create_time_entry" do
+      # these id values come from the cassettes
+      time_entry =
+        %{
+          user_id: 3_031_110,
+          project_id: 23_001_782,
+          task_id: 13_283_054,
+          spent_date: "2019-11-21",
+          hours: 0.25
+        }
+        |> Harvex.TimeEntry.create()
 
-  #     }
-  #     assert %Harvex.TimeEntry{} = Harvex.TimeEntry.create()
-  #   end
-  # end
+      assert %Harvex.TimeEntry{} = time_entry
+    end
+  end
 end

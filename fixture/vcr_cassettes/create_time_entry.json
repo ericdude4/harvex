@@ -1,0 +1,47 @@
+[
+  {
+    "request": {
+      "body": "{\"hours\":0.25,\"project_id\":23001782,\"spent_date\":\"2019-11-21\",\"task_id\":13283054,\"user_id\":3031110}",
+      "headers": {
+        "Authorization": "Bearer 2137291.pt.hp837WAz5X82h7Pm4T9Hubqcc30PSApWJmS8f_8XNfzq458gB1lQELSCdo8y04wcM5POtLFAszS51fOOteruPg",
+        "Harvest-Account-Id": "1199859",
+        "User-Agent": "Harvex (eric@clockk.com)",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.harvestapp.com/v2/time_entries"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":1124895110,\"spent_date\":\"2019-11-21\",\"hours\":0.25,\"notes\":null,\"is_locked\":false,\"locked_reason\":null,\"is_closed\":false,\"is_billed\":false,\"timer_started_at\":null,\"started_time\":null,\"ended_time\":null,\"is_running\":false,\"billable\":true,\"budgeted\":false,\"billable_rate\":null,\"cost_rate\":null,\"created_at\":\"2019-11-21T17:08:39Z\",\"updated_at\":\"2019-11-21T17:08:39Z\",\"user\":{\"id\":3031110,\"name\":\"Eric Froese\"},\"client\":{\"id\":8839431,\"name\":\"Test Client\",\"currency\":\"CAD\"},\"project\":{\"id\":23001782,\"name\":\"Test Project\",\"code\":null},\"task\":{\"id\":13283054,\"name\":\"Programming\"},\"user_assignment\":{\"id\":222014623,\"is_project_manager\":true,\"is_active\":true,\"use_default_rates\":true,\"budget\":null,\"created_at\":\"2019-11-12T18:15:58Z\",\"updated_at\":\"2019-11-12T18:15:58Z\",\"hourly_rate\":null},\"task_assignment\":{\"id\":247951168,\"billable\":true,\"is_active\":true,\"created_at\":\"2019-11-12T18:15:58Z\",\"updated_at\":\"2019-11-12T18:15:58Z\",\"hourly_rate\":null,\"budget\":null},\"invoice\":null,\"external_reference\":null}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Thu, 21 Nov 2019 17:08:39 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Status": "201 Created",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "X-Download-Options": "noopen",
+        "X-Permitted-Cross-Domain-Policies": "none",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Cache-Control": "no-cache, no-store",
+        "p3p": "CP=\"Our privacy policy is available online: https://www.getharvest.com/services/privacy-policy\"",
+        "X-App-Server": "app12",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Content-Security-Policy": "report-uri /csp_reports; default-src *; img-src * data:; font-src data: cache.harvestapp.com https://js.intercomcdn.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com https://*.nr-data.net https://ajax.googleapis.com cache.harvestapp.com https://js-agent.newrelic.com https://platform.twitter.com https://www.google.com https://www.googleadservices.com https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net https://app.intercom.io https://widget.intercom.io https://js.intercomcdn.com https://cdn.plaid.com https://tagmanager.google.com https://bat.bing.com https://ct.capterra.com; style-src 'self' 'unsafe-inline' cache.harvestapp.com https://www.google.com https://tagmanager.google.com https://fonts.googleapis.com",
+        "Location": "https://api.harvestapp.com/api/v2/time_entries/1124895110",
+        "X-Request-Id": "5cf9dcd22bcf94e68069b9f38798c35c",
+        "X-Runtime": "0.207813",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Server": "lb2"
+      },
+      "status_code": 201,
+      "type": "ok"
+    }
+  }
+]
