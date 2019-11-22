@@ -188,6 +188,96 @@ defmodule Harvex.Resource do
             raise(HarvexError, "Unable to connect to Harvest server. Reason #{reason}")
         end
       end
+
+      @doc """
+      Update harvest resource. Parameters are not validated, but passed along in the request body. Please see Harvest API documentation for the appropriate body parameters for your resource.
+
+      ## Params
+      * `id` - id of Harvest resource being updated
+      * `changes` - Map of resource properties to change on the resource. This will be different for each resource based on the specification in Harvest API
+      """
+      def update(id, changes, options \\ []) do
+        url = "https://api.harvestapp.com/v2#{harvest_resource_path()}/#{id}"
+
+        headers =
+          Harvex.get_auth_headers(options)
+          |> (fn headers ->
+                case Keyword.get(options, :additional_headers) do
+                  nil ->
+                    headers
+
+                  additional_headers ->
+                    headers ++ additional_headers
+                end
+              end).()
+          |> (&(&1 ++ [{"Content-Type", "application/json"}])).()
+
+        body =
+          case Jason.encode(changes) do
+            {:ok, body} ->
+              body
+
+            {:error, %Jason.EncodeError{message: message}} ->
+              raise(
+                HarvexError,
+                "Invalid :changes. Was not able to encode to JSON. #{message}"
+              )
+          end
+
+        case HTTPoison.patch(url, body, headers) do
+          {:ok, resp} ->
+            case resp.status_code do
+              200 ->
+                payload = Jason.decode!(resp.body, keys: :atoms)
+
+                struct!(__MODULE__, payload)
+
+              status_code when status_code > 399 ->
+                error = Jason.decode!(resp.body, keys: :atoms)
+                raise(HarvexError, error.message)
+            end
+
+          {:error, %HTTPoison.Error{id: nil, reason: reason}} ->
+            raise(HarvexError, "Unable to connect to Harvest server. Reason #{reason}")
+        end
+      end
+
+      @doc """
+      Delete harvest resource with provided id.
+
+      ## Params
+      * `id` - id of Harvest resource to delete
+      """
+      def delete(id, options \\ []) do
+        url = "https://api.harvestapp.com/v2#{harvest_resource_path()}/#{id}"
+
+        headers =
+          Harvex.get_auth_headers(options)
+          |> (fn headers ->
+                case Keyword.get(options, :additional_headers) do
+                  nil ->
+                    headers
+
+                  additional_headers ->
+                    headers ++ additional_headers
+                end
+              end).()
+
+        case HTTPoison.delete(url, headers) do
+          {:ok, resp} ->
+            case resp.status_code do
+              200 ->
+                :ok
+
+              status_code when status_code > 399 ->
+                error = Jason.decode!(resp.body, keys: :atoms)
+                raise(HarvexError, error.message)
+            end
+
+          {:error, %HTTPoison.Error{id: nil, reason: reason}} ->
+            raise(HarvexError, "Unable to connect to Harvest server. Reason #{reason}")
+        end
+      end
     end
   end
 end

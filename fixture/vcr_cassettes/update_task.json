@@ -1,0 +1,46 @@
+[
+  {
+    "request": {
+      "body": "{\"name\":\"harvex is the best harvest api wrapper\"}",
+      "headers": {
+        "Authorization": "Bearer 2137291.pt.hp837WAz5X82h7Pm4T9Hubqcc30PSApWJmS8f_8XNfzq458gB1lQELSCdo8y04wcM5POtLFAszS51fOOteruPg",
+        "Harvest-Account-Id": "1199859",
+        "User-Agent": "Harvex (eric@clockk.com)",
+        "Content-Type": "application/json"
+      },
+      "method": "patch",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.harvestapp.com/v2/tasks/13283058"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":13283058,\"name\":\"harvex is the best harvest api wrapper\",\"billable_by_default\":false,\"default_hourly_rate\":null,\"is_default\":false,\"is_active\":true,\"created_at\":\"2019-11-12T18:15:29Z\",\"updated_at\":\"2019-11-22T21:06:40Z\"}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Fri, 22 Nov 2019 21:07:24 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Status": "200 OK",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff",
+        "X-Download-Options": "noopen",
+        "X-Permitted-Cross-Domain-Policies": "none",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Cache-Control": "no-cache, no-store",
+        "p3p": "CP=\"Our privacy policy is available online: https://www.getharvest.com/services/privacy-policy\"",
+        "X-App-Server": "app8",
+        "X-Robots-Tag": "noindex, nofollow",
+        "Content-Security-Policy": "report-uri /csp_reports; default-src *; img-src * data:; font-src data: cache.harvestapp.com https://js.intercomcdn.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com https://*.nr-data.net https://ajax.googleapis.com cache.harvestapp.com https://js-agent.newrelic.com https://platform.twitter.com https://www.google.com https://www.googleadservices.com https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net https://app.intercom.io https://widget.intercom.io https://js.intercomcdn.com https://cdn.plaid.com https://tagmanager.google.com https://bat.bing.com https://ct.capterra.com; style-src 'self' 'unsafe-inline' cache.harvestapp.com https://www.google.com https://tagmanager.google.com https://fonts.googleapis.com",
+        "X-Request-Id": "b6ecf0127e006bc2656c04878fa1e6cb",
+        "X-Runtime": "0.075242",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Server": "lb1"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

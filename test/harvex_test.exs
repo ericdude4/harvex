@@ -71,4 +71,17 @@ defmodule HarvexTest do
       assert %Harvex.TimeEntry{} = time_entry
     end
   end
+
+  test "updates authenticated harvest user's task" do
+    use_cassette "update_task" do
+      assert %Harvex.Task{} =
+               Harvex.Task.update(13_283_058, %{name: "harvex is the best harvest api wrapper"})
+    end
+  end
+
+  test "deletes authenticated harvest user's task" do
+    use_cassette "delete_task" do
+      assert :ok = Harvex.Task.delete(13_283_057)
+    end
+  end
 end
