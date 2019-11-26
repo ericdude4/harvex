@@ -84,4 +84,22 @@ defmodule HarvexTest do
       assert :ok = Harvex.Task.delete(13_283_057)
     end
   end
+
+  test "retrieves authenticated harvest user's company" do
+    use_cassette "retrieve_company" do
+    assert %Harvex.Company{} = Harvex.Company.retrieve()
+    end
+  end
+
+  test "updates authenticated harvest user's company" do
+    use_cassette "update_company" do
+      assert %Harvex.Company{} = Harvex.Company.update(%{wants_timestamp_timers: true})
+    end
+  end
+
+  test "gets authenticated harvest user's invoices" do
+    use_cassette "invoices" do
+      assert [%Harvex.Invoice{} | _] = Harvex.Invoice.list()
+    end
+  end
 end

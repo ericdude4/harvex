@@ -2,7 +2,7 @@ defmodule Harvex do
   @moduledoc """
   Documentation for Harvex.
 
-  You should not use any of these functions directly.
+  You shouldn't need to use any of these functions directly.
   """
 
   @doc """

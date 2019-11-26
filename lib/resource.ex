@@ -192,6 +192,8 @@ defmodule Harvex.Resource do
       @doc """
       Update harvest resource. Parameters are not validated, but passed along in the request body. Please see Harvest API documentation for the appropriate body parameters for your resource.
 
+      Will return `%Harvex.__MODULE__{}` on success, `{:error, 404}` if resource not found, or throw `HarvexError` for implementation errors.
+
       ## Params
       * `id` - id of Harvest resource being updated
       * `changes` - Map of resource properties to change on the resource. This will be different for each resource based on the specification in Harvest API
@@ -232,6 +234,9 @@ defmodule Harvex.Resource do
 
                 struct!(__MODULE__, payload)
 
+              404 ->
+                {:error, 404}
+
               status_code when status_code > 399 ->
                 error = Jason.decode!(resp.body, keys: :atoms)
                 raise(HarvexError, error.message)
@@ -244,6 +249,8 @@ defmodule Harvex.Resource do
 
       @doc """
       Delete harvest resource with provided id.
+
+      Will return `:ok` on success, `{:error, 404}` if resource not found, or throw `HarvexError` for implementation errors.
 
       ## Params
       * `id` - id of Harvest resource to delete
@@ -269,9 +276,12 @@ defmodule Harvex.Resource do
               200 ->
                 :ok
 
+              404 ->
+                {:error, 404}
+
               status_code when status_code > 399 ->
                 error = Jason.decode!(resp.body, keys: :atoms)
-                raise(HarvexError, error.message)
+                raise(HarvexError, error)
             end
 
           {:error, %HTTPoison.Error{id: nil, reason: reason}} ->
