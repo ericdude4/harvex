@@ -87,7 +87,7 @@ defmodule HarvexTest do
 
   test "retrieves authenticated harvest user's company" do
     use_cassette "retrieve_company" do
-    assert %Harvex.Company{} = Harvex.Company.retrieve()
+      assert %Harvex.Company{} = Harvex.Company.retrieve()
     end
   end
 

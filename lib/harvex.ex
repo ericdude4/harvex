@@ -1,8 +1,6 @@
 defmodule Harvex do
   @moduledoc """
   Documentation for Harvex.
-
-  You shouldn't need to use any of these functions directly.
   """
 
   @doc """
@@ -57,10 +55,40 @@ defmodule Harvex do
           raise(HarvexError, "no :access_token in options.")
 
         access_token ->
-          access_token
+          case access_token do
+            %{"access_token" => access_token} ->
+              access_token
+
+            %{access_token: access_token} ->
+              access_token
+          end
       end
 
     [{"Authorization", "Bearer #{access_token}"}]
+  end
+
+  @doc """
+  Exchanges an OAuth code for an access token.
+
+  returns struct
+  """
+  def authorize(code) do
+    case HTTPoison.post(
+           "https://id.getharvest.com/api/v2/oauth2/token",
+           Jason.encode!(%{
+             code: code,
+             client_id: System.get_env("HARVEST_CLIENT_ID"),
+             client_secret: System.get_env("HARVEST_CLIENT_SECRET"),
+             grant_type: "authorization_code"
+           }),
+           [
+             {"Content-Type", "application/json"},
+             {"User-Agent", "Clockk (eric@clockk.com)"}
+           ]
+         ) do
+      {:ok, response} ->
+        Jason.decode!(response.body, keys: :atoms)
+    end
   end
 
   # return request headers based on a Harvest personal access token

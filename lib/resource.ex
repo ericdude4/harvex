@@ -173,6 +173,8 @@ defmodule Harvex.Resource do
 
         case HTTPoison.post(url, body, headers) do
           {:ok, resp} ->
+            IO.inspect(resp)
+
             case resp.status_code do
               201 ->
                 payload = Jason.decode!(resp.body, keys: :atoms)
