@@ -18,6 +18,7 @@ defmodule Harvex.TimeEntry do
     :external_reference,
     :invoice,
     :hours,
+    :rounded_hours,
     :notes,
     :is_locked,
     :locked_reason,
